@@ -62,3 +62,37 @@ body {
   background-color: #fd565f;
   color: white;
 }
+
+/* Header */
+header {
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+header > div {
+  display: flex;
+}
+
+header .head_text {
+  width: 70%;
+  font-size: 25px;
+  justify-content: center;
+}
+
+header .head_left {
+  width: 25%;
+  justify-content: start;
+}
+
+header .head_right {
+  width: 25%;
+  justify-content: end;
+}
+
+header button {
+  font-family: "Shadows Into Light";
+}
