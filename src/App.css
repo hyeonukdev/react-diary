@@ -78,17 +78,17 @@ header > div {
 }
 
 header .head_text {
-  width: 70%;
+  width: 50%;
   font-size: 25px;
   justify-content: center;
 }
 
-header .head_left {
+header .head_btn_left {
   width: 25%;
   justify-content: start;
 }
 
-header .head_right {
+header .head_btn_right {
   width: 25%;
   justify-content: end;
 }
