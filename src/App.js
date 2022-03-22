@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import React, { useReducer, useRef } from "react";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -36,26 +36,64 @@ const reducer = (state, action) => {
   return newState;
 };
 
+export const DiaryStateContext = React.createContext();
+export const DiaryDispatchContext = React.createContext();
+
 function App() {
   const [data, dispatch] = useReducer(reducer, []);
 
+  const dataId = useRef(0);
   //CREATE
-
+  const onCreate = (data, content, emotion) => {
+    dispatch({
+      type: "CREATE",
+      data: {
+        id: dataId.current,
+        date: new Date(data).getTime(),
+        content,
+        emotion,
+      },
+    });
+    dataId.current += 1;
+  };
   //REMOVE
-
+  const onRemove = (targetId) => {
+    dispatch({ type: "REMOVE", targetId });
+  };
   //Edit
+  const onEdit = (targetId, data, content, emotion) => {
+    dispatch({
+      type: "EDIT",
+      data: {
+        id: targetId,
+        date: new Date(data).getTime(),
+        content,
+        emotion,
+      },
+    });
+  };
 
   return (
-    <BrowserRouter>
-      <div className="App">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/new" element={<New />} />
-          <Route path="/edit" element={<Edit />} />
-          <Route path="/diary/:id" element={<Diary />} />
-        </Routes>
-      </div>
-    </BrowserRouter>
+    <DiaryStateContext.Provider value={data}>
+      <DiaryDispatchContext.Provider
+        value={{
+          onCreate,
+          onEdit,
+          onRemove,
+        }}
+      >
+        <BrowserRouter>
+          <div className="App">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/new" element={<New />} />
+              <Route path="/edit" element={<Edit />} />
+              <Route path="/diary/:id" element={<Diary />} />
+            </Routes>
+          </div>
+        </BrowserRouter>
+      </DiaryDispatchContext.Provider>
+    </DiaryStateContext.Provider>
   );
 }
 
