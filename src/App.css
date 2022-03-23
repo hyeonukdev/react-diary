@@ -221,3 +221,34 @@ header button {
   font-family: "Bungee", cursive;
   font-size: 20px;
 }
+
+.DiaryEditor .emotion_list_wrapper {
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  gap: 2%;
+}
+
+/* EmotionItem */
+.EmotionItem {
+  cursor: pointer;
+  border: radius 5px;
+
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  /* 가로로 만들어주는것 */
+  display: flex;
+  /* 세로로 유지 되게끔... */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.EmotionItem img {
+  width: 50%;
+  margin-bottom: 10px;
+}
+
+.EmotionItem span {
+  font-size: 18px;
+}
