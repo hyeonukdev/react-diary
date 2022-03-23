@@ -228,6 +228,23 @@ header button {
   gap: 2%;
 }
 
+.DiaryEditor textarea {
+  font-family: "Bungee", cursive;
+  font-size: 20px;
+
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 200px;
+  /* 늘어나는 속성 제거 */
+  resize: vertical;
+
+  border: none;
+  border-radius: 5px;
+  background-color: #ececec;
+
+  padding: 20px;
+}
+
 /* EmotionItem */
 .EmotionItem {
   cursor: pointer;
