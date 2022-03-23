@@ -32,6 +32,7 @@ const Diary = () => {
         navigate("/", { replace: true });
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, diaryList]);
 
   if (!data) {
