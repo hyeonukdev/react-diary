@@ -5,6 +5,12 @@ const sortOptionList = [
   { value: "oldest", name: "오래된 순" },
 ];
 
+const filterOptionList = [
+  { value: "all", name: "전부다" },
+  { value: "good", name: "좋은 감정만" },
+  { value: "bad", name: "안좋은 감정만" },
+];
+
 const ControlMenu = ({ value, onChange, optionList }) => {
   return (
     <select value={value} onChange={(e) => onChange(e.target.value)}>
@@ -19,9 +25,17 @@ const ControlMenu = ({ value, onChange, optionList }) => {
 
 const DiaryList = ({ diaryList }) => {
   const [sortType, setSortType] = useState("latest");
+  const [filter, setFilter] = useState("all");
 
   // 원본에 영향을 주지 않도록 string -> array 처리 후 정렬
   const getProcessDiaryList = () => {
+    const filterCallback = (item) => {
+      if (filter === "good") {
+        return parseInt(item.emotion) <= 3;
+      } else {
+        return parseInt(item.emotion) > 3;
+      }
+    };
     const compare = (a, b) => {
       console.log("sortType: ", sortType);
       if (sortType === "latest") {
@@ -31,9 +45,10 @@ const DiaryList = ({ diaryList }) => {
       }
     };
     const copyList = JSON.parse(JSON.stringify(diaryList));
-    console.log("copyList: ", copyList);
-    const sortedDiaryList = copyList.sort(compare);
-    console.log("sortedDiaryList: ", sortedDiaryList);
+    const filteredList =
+      filter === "all" ? copyList : copyList.filter((it) => filterCallback(it));
+
+    const sortedDiaryList = filteredList.sort(compare);
     return sortedDiaryList;
   };
 
@@ -43,6 +58,11 @@ const DiaryList = ({ diaryList }) => {
         value={sortType}
         onChange={setSortType}
         optionList={sortOptionList}
+      />
+      <ControlMenu
+        value={filter}
+        onChange={setFilter}
+        optionList={filterOptionList}
       />
       {getProcessDiaryList().map((it) => (
         <div key={it.id}>{it.content}</div>
