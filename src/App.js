@@ -20,8 +20,8 @@ const reducer = (state, action) => {
       newState = [newItem, ...state];
       break;
     }
-    case "REMOVED": {
-      newState = state.filter((it) => it.id === action.target.id);
+    case "REMOVE": {
+      newState = state.filter((it) => it.id !== action.targetId);
       break;
     }
     case "EDIT": {
