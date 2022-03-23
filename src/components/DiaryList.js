@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import MyButton from "./MyButton";
 
 const sortOptionList = [
   { value: "latest", name: "최신순" },
@@ -24,6 +26,7 @@ const ControlMenu = ({ value, onChange, optionList }) => {
 };
 
 const DiaryList = ({ diaryList }) => {
+  const navigate = useNavigate();
   const [sortType, setSortType] = useState("latest");
   const [filter, setFilter] = useState("all");
 
@@ -37,7 +40,6 @@ const DiaryList = ({ diaryList }) => {
       }
     };
     const compare = (a, b) => {
-      console.log("sortType: ", sortType);
       if (sortType === "latest") {
         return parseInt(b.date) - parseInt(a.date);
       } else {
@@ -63,6 +65,11 @@ const DiaryList = ({ diaryList }) => {
         value={filter}
         onChange={setFilter}
         optionList={filterOptionList}
+      />
+      <MyButton
+        type={"positive"}
+        text={"새 일기쓰기"}
+        onClick={() => navigate("/new")}
       />
       {getProcessDiaryList().map((it) => (
         <div key={it.id}>{it.content}</div>
