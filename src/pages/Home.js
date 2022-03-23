@@ -10,7 +10,7 @@ const Home = () => {
 
   const [data, setData] = useState([]);
   const [curDate, setCurDate] = useState(new Date());
-  const headText = `${curDate.getFullYear()}년 ${curDate.getMonth()}월`;
+  const headText = `${curDate.getFullYear()}년 ${curDate.getMonth() + 1}월`;
 
   useEffect(() => {
     if (diaryList.length > 0) {
@@ -22,7 +22,9 @@ const Home = () => {
       const lastDay = new Date(
         curDate.getFullYear(),
         curDate.getMonth() + 1,
-        0
+        0,
+        23,
+        59
       ).getTime();
 
       setData(
